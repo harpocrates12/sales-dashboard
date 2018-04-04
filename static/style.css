@@ -1,0 +1,93 @@
+body {
+	font-family: Arial;
+	width: auto;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div {
+	margin: 10px;
+	padding: 10px;
+}
+
+h2 {
+	background-color: white;
+	color: #60605f;
+	margin-bottom: 0px;
+	padding: 20px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: #09a44a;
+	text-align: center;
+	font-weight: lighter;
+}
+
+h3 {
+	background-color: #09a44a;
+	color: white;
+	margin-top: 0px;
+	padding: 5px;
+	padding-right: 20px;
+	border-radius: 5px;
+	text-align: right;
+	font-weight: lighter;
+}
+
+table .title {
+	background-color: #157bc0;
+}
+
+table .head {
+	padding: 5px;
+	color: white;
+	text-shadow: 2px 2px #333;
+	border-radius: 3px;
+}
+
+table .content {
+/*	background-color: #ededed;*/
+}
+
+table .cells {
+	padding: 5px; 
+	border-radius: 3px; 
+	border-style: solid;
+	border-width: 2px; 
+	border-color: #888;
+}
+
+table .total {
+	padding: 5px;
+	background-color: #ededed;
+	border-radius: 5px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-width: 2px;
+	border-color: #09a44a;
+	font-weight: bold;
+}
+
+.progress {
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	background-color: #8ef;
+	z-index: -1;
+}
+
+td {
+	position: relative;
+	width: 300px;
+}
+
+table {
+	height: 500px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 0px;
+}

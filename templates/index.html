@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>{{datetime[1]}}</h3>
+
+<table>
+	<tr class="title">
+		<th class="head">Agent</th>
+		<th class="head">Today</th>
+		<th class="head">Month</th>
+		<th class="head">Commission</th>
+		<th class="head">Target (TA)</th>
+		<th class="head">Month Estimate</th>
+		<th class="head">Run Rate</th>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	 {% for entry in values %}
+	 		<!-- IF CURRENT_MONTH AND AGENT_TARGET BIGGER THAN 0 -->
+	 	 	{% if entry[1][1] > 0 and entry[1][2] > 0 %}
+	 		 	<tr class="content">
+	 		 		<td class="cells">{{entry[1][0][:(entry[1][0].index(' '))]}}</td>
+	 		 		<td class="cells">{{'{0:,} €'.format(entry[1][3]|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(entry[1][1]|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(((entry[1][1]*0.8)*0.012)|int).replace(',','.')}}</td>
+	 		 		<td class="cells"><div class="progress" style="width: {{(100/(entry[1][2]/entry[1][1]))|int}}%; max-width: 100%"></div>{{'{0:,} €'.format(entry[1][2]|int).replace(',','.')}} ({{(100/(entry[1][2]/entry[1][1]))|int}} %)</td>
+					<td class="cells">{{'{0:,} €'.format((entry[1][1]/datetime[0]*30/entry[1][2]*entry[1][2])|int).replace(',','.')}}</td>
+	 		 		<td class="cells" name="runrate">{{(entry[1][1]/datetime[0]*30/entry[1][2]*100)|int}} %</td>
+	 		 	</tr>
+	 		 	<tr>
+	 		 		<td></td>
+				</tr>
+			<!-- IF CURRENT_MONTH AND AGENT_TARGET BOTH ARE 0 -->
+	 		 {% elif entry[1][1] == 0 and entry[1][2] == 0 %}
+	 		 	<tr class="content">
+	 		 		<td class="cells">{{entry[1][0][:(entry[1][0].index(' '))]}}</td>
+	 		 		<td class="cells">{{'{0:,} €'.format(entry[1][3]|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(entry[1][1]|int).replace(',','.')}}</td>
+					<td class="cells">0</td>
+	 		 		<td class="cells">{{'{0:,} €'.format(entry[1][2]).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(entry[1][1]|int).replace(',','.')}}</td>
+	 		 		<td class="cells" name="runrate" style="font-size: 25px; padding: 0px;">
+	 		 		&#9786
+	 		 		</td>
+	 		 	</tr>
+	 		 	<tr>
+	 		 		<td></td>
+				  </tr>
+			<!-- IF CURRENT_MONTH BIGGER THAN 0 AND AGENT_TARGET IS 0 -->
+			{% elif entry[1][1] > 0 and entry[1][2] == 0 %}
+				<tr class="content">
+					<td class="cells">{{entry[1][0][:(entry[1][0].index(' '))]}}</td>
+					<td class="cells">{{'{0:,} €'.format(entry[1][3]|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(entry[1][1]|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(((entry[1][1]*0.8)*0.012)|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(entry[1][2]).replace(',','.')}}</td>
+			  		<td class="cells">{{'{0:,} €'.format(entry[1][1]|int).replace(',','.')}}</td>
+					<td class="cells" name="runrate" style="font-size: 25px; padding: 0px;">
+					&#9786
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+	 		 {% else %}
+	 		 	<tr class="content">
+	 		 		<td class="cells">{{entry[1][0][:(entry[1][0].index(' '))]}}</td>
+	 		 		<td class="cells">{{'{0:,} €'.format(entry[1][3]|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(entry[1][1]|int).replace(',','.')}}</td>
+					<td class="cells">{{'{0:,} €'.format(((entry[1][1]*0.8)*0.012)|int).replace(',','.')}}</td>
+	 		 		<td class="cells">{{'{0:,} €'.format(entry[1][2]).replace(',','.')}} (0 %)</td>
+	 		 		<td class="cells">{{'{0:,} €'.format((entry[1][1]/datetime[0]*30/entry[1][2]*entry[1][2])|int).replace(',','.')}}</td>
+					<td class="cells" name="runrate">{{(entry[1][1]/datetime[0]*30/entry[1][2]*100)|int}} %</td>
+	 		 	</tr>
+	 		 	<tr>
+	 		 		<td></td>
+	 		 	</tr>
+	 		 {% endif %}
+	 	 {% endfor %}
+	 	 {% if total[0] == 0 %}
+		 	 <tr class="sum">
+		 	 	<td class="total">Team</td>
+		 	 	<td class="total">{{'{0:,} €'.format(total[2]|int).replace(',','.')}}</td>
+				<td class="total">0</td>
+				<td class="cells">Commission</td>
+		 	 	<td class="total">{{'{0:,} €'.format(total[1]).replace(',','.')}} (0 %)</td>
+		 	 	<td class="total">{{'{0:,} €'.format(total[0]/datetime[0]*30/total[1]*total[1]|int).replace(',','.')}}</td>
+				<td class="total">{{(total[0]/datetime[0]*30/total[1]*100)|int}} %</td>
+		 	</tr>
+		 {% else %}
+			  <tr class="sum">
+			  	<td class="total">Team</td>
+			  	<td class="total">{{'{0:,} €'.format(total[2]|int).replace(',','.')}}</td>
+				<td class="total">{{'{0:,} €'.format(total[0]|int).replace(',','.')}}</td>
+				<td class="total">Commission</td>
+			  	<td class="total">{{'{0:,} €'.format(total[1]).replace(',','.')}} ({{(100/(total[1]/total[0]))|int}} %)</td>
+			  	<td class="total">{{'{0:,} €'.format((total[0]/datetime[0]*30/total[1]*total[1])|int).replace(',','.')}}</td>
+				<td class="total">{{(total[0]/datetime[0]*30/total[1]*100)|int}} %</td>
+			 </tr>
+		 {% endif%}
+</table>
+
+{% endblock %}
