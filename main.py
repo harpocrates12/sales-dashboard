@@ -19,23 +19,25 @@ def index():
 	current_time = time()
 	datetime = [day, datetime]
 
-	# return a dict with the stats {user_id:[name, current_month_won, target, current_day_won]
+	# return a dict with the stats { user_id:[name, current_month_won, target, current_day_won] }
 	values = get_values(current_time, day)
 
 	if values == False:
 		return "API request failed"
 		
-	x, y, z = 0, 0, 0
+	w, x, y, z = 0, 0, 0, 0
 
 	for entry in values:
 		# summing the teams total current_month_won
-		x += values[entry][1]
+		w += values[entry][1]
 		# summing the teams total target
-		y += values[entry][2]
+		x += values[entry][2]
 		# summing the teams total current_day_won
-		z += values[entry][3]
+		y += values[entry][3]
+		# summing the teams total won_deals
+		z += values[entry][4]
 
-	total = [x, y, z]
+	total = [w, x, y, z]
 
 	# create sorted list from dict; sorted by second value (name)
 	values = sorted(values.items(), key = lambda t: t[1])

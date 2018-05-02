@@ -59,9 +59,9 @@ def get_values(current_time, day):
     # convert Keys to integer values so api comparison can match the values
     for val in values_temp:
         # values[int(val)] = [values_temp[val][0],float(values_temp[val][1]),float(values_temp[val][2]),float(values_temp[val][3])]
-        values[int(val)] = values_temp[val]
+        values[int(val)] = values_temp[val] + [0]
 
-    print(values)
+    # print(values)
 
     # adding values from API response to current_month_won and current_day_won
     if deals['data']:
@@ -71,6 +71,7 @@ def get_values(current_time, day):
 
                 values[entry['user_id']['value']][0] = entry['user_id']['name']
                 values[entry['user_id']['value']][1] += (entry['value'])
+                values[entry['user_id']['value']][-1] += 1
 
                 if entry['won_time']:
 
@@ -78,5 +79,7 @@ def get_values(current_time, day):
                         values[entry['user_id']['value']][3] += (entry['value'])
             else:
                 pass
+
+    # print(values)
 
     return values
