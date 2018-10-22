@@ -49,8 +49,8 @@ def get_values(current_time, day):
             print ("filling cache ...")
             cache = deals
 
-        except:
-            print ("API request failed")
+        except Exception as e:
+            print ("API request failed: ", e)
             return False
 
     # initialising dict {user_id: [name, current_month_won, month_target, current_day_won]}
