@@ -11,7 +11,7 @@ gunicorn==19.7.1
 html5lib==0.999999999
 idna==2.5
 itsdangerous==0.24
-Jinja2==2.10.1
+Jinja2==2.11.3
 MarkupSafe==1.0
 pew==0.1.26
 pexpect==4.2.1
